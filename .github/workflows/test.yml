@@ -1,12 +1,29 @@
-name: RUNNER
+name: calculate_wage
 on: push
+env:
+  hourly_wage: 25
 jobs:
-  if-Windows-else:
+  weekly:
     runs-on: ubuntu-latest
+    outputs:
+      output_1: ${{ steps.step1.outputs.weekly_wage }} 
+    env:
+      hours: 40
     steps:
-      - name: condition 1
-        if: runner.os == 'Windows'
-        run: echo "The operating system on the runner is $env:RUNNER_OS."
-      - name: condition 2
-        if: runner.os != 'Windows'
-        run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
+      - id: step1
+        run: echo "weekly_wage=$((${{ env.hourly_wage }} * ${{ env.hours }}))" >> $GITHUB_OUTPUT
+  overtime:
+    runs-on: ubuntu-latest
+    outputs:
+      output_2: ${{ steps.step1.outputs.overtime_wage }} 
+    env:
+      overtime: 15
+    steps:
+      - id: step1
+        run: echo "overtime_wage=$((${{ env.hourly_wage }} * ${{ env.overtime }}))" >> $GITHUB_OUTPUT
+  total_wage:
+    runs-on: ubuntu-latest
+    needs: [weekly, overtime]
+    steps:
+      - name: total
+        run: echo $((${{needs.weekly.outputs.output_1}} + ${{needs.overtime.outputs.output_2}}))
