@@ -1,7 +1,3 @@
-Runner
- Report a typo
-What is the output of the workflow file?
-
 name: RUNNER
 on: push
 jobs:
@@ -14,5 +10,3 @@ jobs:
       - name: condition 2
         if: runner.os != 'Windows'
         run: echo "The operating system on the runner is not Windows, it's $RUNNER_OS."
-
-Enter a short text
