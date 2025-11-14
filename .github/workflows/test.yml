@@ -1,0 +1,12 @@
+name: Even or Odd?
+on: push
+jobs:
+  zeroone:
+    runs-on: ubuntu-latest
+    steps:
+      - id: gen-num
+        run: echo "num=22 % 2" 
+      - if: steps.gen-num.outputs.num == 0
+        run: echo "The number is even"
+      - if: steps.gen-num.outputs.num == 1
+        run: echo "The number is odd"
