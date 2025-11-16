@@ -10,7 +10,7 @@ jobs:
           echo "The time is $(date -u)" > time.txt
 
       - name: Upload time artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: time-artifact # optional, default is artifact
           path: time.txt
