@@ -7,12 +7,12 @@ jobs:
     steps:
       - name: Create a text file
         run: |
-          echo "The time is $(date -u)" > time.txt
+          echo "The time is $(date -u)" > time.html
 
       - name: Upload time artifact
         uses: actions/upload-artifact@v4
         with:
           name: time-artifact # optional, default is artifact
-          path: time.txt
+          path: time.html
           if-no-files-found: error # optional, default is warn
           retention-days: 1 # optional, maximum 90 days
